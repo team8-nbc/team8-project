@@ -44,7 +44,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Test And Build with Gradle
+      - name: Clean Gradle Cache (Optional but good)
+        run: ./gradlew clean --refresh-dependencies
+
+      - name: Test And Build with Gradle (Debug Mode)
         env:
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-        run: ./gradlew clean build -Dspring.profiles.active=ci
+        run: ./gradlew build --stacktrace --info -Dspring.profiles.active=ci
