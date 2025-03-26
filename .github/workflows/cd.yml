@@ -40,13 +40,13 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: |
-            ECR_URI=${{ secrets.ECR_URI }}
-            DB_URL=${{ secrets.DB_URL }}
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
           script: |
+            export ECR_URI=${{ secrets.ECR_URI }}
+            export DB_URL=${{ secrets.DB_URL }}
+            export DB_USER=${{ secrets.DB_USER }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+
             docker pull $ECR_URI
             docker stop eightyage || true
             docker rm eightyage || true
@@ -55,7 +55,8 @@ jobs:
               -e DB_USER=$DB_USER \
               -e DB_PASSWORD=$DB_PASSWORD \
               -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
-              $ECR_URI java -jar app.jar --spring.profiles.active=prod
+              $ECR_URI \
+              --spring.profiles.active=prod
 
       - name: Health Check
         uses: appleboy/ssh-action@v1
