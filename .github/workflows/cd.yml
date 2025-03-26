@@ -55,8 +55,7 @@ jobs:
               -e DB_USER=$DB_USER \
               -e DB_PASSWORD=$DB_PASSWORD \
               -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
-              $ECR_URI \
-              --spring.profiles.active=prod
+              $ECR_URI java -jar app.jar --spring.profiles.active=prod
 
       - name: Health Check
         uses: appleboy/ssh-action@v1
