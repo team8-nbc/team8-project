@@ -41,13 +41,16 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
+            docker pull <ECR_URI>:latest
             docker stop eightyage || true
             docker rm eightyage || true
             docker run -d -p 8080:8080 \
+              -e DB_URL=${{ secrets.DB_URL }} \
+              -e DB_USER=${{ secrets.DB_USER }} \
+              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-              --name eightyage \
-              060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
+              <ECR_URI>:latest \
+              --spring.profiles.active=prod
 
       - name: Health Check
         uses: appleboy/ssh-action@v1
