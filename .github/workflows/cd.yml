@@ -41,13 +41,13 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            aws ecr get-login-password | \
-            docker login --username AWS --password-stdin 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com
-
             docker pull 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
             docker stop eightyage || true
             docker rm eightyage || true
-            docker run -d -p 8080:8080 --name eightyage 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
+            docker run -d -p 8080:8080 \
+              -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+              --name eightyage \
+              060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
 
       - name: Health Check
         uses: appleboy/ssh-action@v1
