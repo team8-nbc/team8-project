@@ -24,15 +24,15 @@ jobs:
       - name: ECR Login
         run: |
           aws ecr get-login-password | \
-          docker login --username AWS --password-stdin 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage
+          docker login --username AWS --password-stdin ${{ secrets.ECR_URI }}
 
       - name: Docker Images Check
         run: docker images
 
       - name: ECR Push
         run: |
-          docker tag eightyage:latest 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
-          docker push 060795921224.dkr.ecr.ap-northeast-2.amazonaws.com/eightyage:latest
+          docker tag eightyage:latest ${{ secrets.ECR_URI }}
+          docker push ${{ secrets.ECR_URI }}
 
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1
@@ -40,16 +40,22 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: |
+            ECR_URI=${{ secrets.ECR_URI }}
+            DB_URL=${{ secrets.DB_URL }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
           script: |
-            docker pull <ECR_URI>:latest
+            docker pull $ECR_URI
             docker stop eightyage || true
             docker rm eightyage || true
             docker run -d -p 8080:8080 \
-              -e DB_URL=${{ secrets.DB_URL }} \
-              -e DB_USER=${{ secrets.DB_USER }} \
-              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-              -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-              <ECR_URI>:latest \
+              -e DB_URL=$DB_URL \
+              -e DB_USER=$DB_USER \
+              -e DB_PASSWORD=$DB_PASSWORD \
+              -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
+              $ECR_URI \
               --spring.profiles.active=prod
 
       - name: Health Check
