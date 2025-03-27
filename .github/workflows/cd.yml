@@ -43,11 +43,11 @@ jobs:
           envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY
 
           script: |
-            echo "🧪 Test: ECR_URI from secret: ${{ secrets.ECR_URI }}"
             export ECR_URI=${{ secrets.ECR_URI }}
+            export DB_URL=${{ secrets.DB_URL }}
+            export DB_USER=${{ secrets.DB_USER }}
+            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-            echo "✅ ECR_URI is: $ECR_URI"
-            echo "🔑 JWT_SECRET_KEY is: $JWT_SECRET_KEY"
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
               -e DB_URL=$DB_URL \
