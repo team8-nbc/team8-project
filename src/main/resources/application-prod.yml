@@ -21,10 +21,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate  # 운영에서는 validate 권장
+      ddl-auto: validate
     properties:
       hibernate:
-        show_sql: false     # SQL 로그 출력 X (운영 환경)
+        show_sql: false
         format_sql: true
         use_sql_comments: false
         dialect: org.hibernate.dialect.MySQLDialect
