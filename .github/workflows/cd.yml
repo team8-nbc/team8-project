@@ -43,6 +43,7 @@ jobs:
           envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY
 
           script: |
+            echo "✅ ECR_URI is: $ECR_URI"
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
               -e DB_URL=$DB_URL \
