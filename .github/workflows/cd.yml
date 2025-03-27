@@ -48,6 +48,7 @@ jobs:
             export DB_USER=${{ secrets.DB_USER }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_URI
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
               -e DB_URL=$DB_URL \
