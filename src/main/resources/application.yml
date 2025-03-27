@@ -10,6 +10,9 @@ server:
       timeout: 1800
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
+
   application:
     name: eightyage
 
