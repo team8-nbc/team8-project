@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY
+          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_REGION
 
           script: |
             export ECR_URI=${{ secrets.ECR_URI }}
@@ -48,6 +48,7 @@ jobs:
             export DB_USER=${{ secrets.DB_USER }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            export AWS_REGION=${{ secrets.AWS_REGION }}
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_URI
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
