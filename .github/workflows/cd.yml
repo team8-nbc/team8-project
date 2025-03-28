@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_REGION,
+          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_REGION,AWS_S3_BUCKET
 
           script: |
             export ECR_URI=${{ secrets.ECR_URI }}
@@ -49,6 +49,7 @@ jobs:
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
             export AWS_REGION=${{ secrets.AWS_REGION }}
+            export AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_URI
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
@@ -56,7 +57,8 @@ jobs:
               -e DB_USER=$DB_USER \
               -e DB_PASSWORD=$DB_PASSWORD \
               -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
-              -e AWS_REGION=ap-northeast-2 \
+              -e AWS_REGION=$AWS_REGION \
+              -e AWS_S3_BUCKET=$AWS_S3_BUCKET \
               $ECR_URI
 
       - name: Health Check
