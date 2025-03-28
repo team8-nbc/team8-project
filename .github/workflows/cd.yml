@@ -50,6 +50,10 @@ jobs:
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
             export AWS_REGION=${{ secrets.AWS_REGION }}
             export AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
+            
+            docker ps -q --filter ancestor=$ECR_URI | xargs -r docker stop
+            docker ps -aq --filter ancestor=$ECR_URI | xargs -r docker rm
+            
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_URI
             docker pull $ECR_URI
             docker run -d -p 8080:8080 \
