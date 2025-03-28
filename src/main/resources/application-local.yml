@@ -16,3 +16,8 @@ aws:
   region: ap-northeast-2
   s3:
     bucket: my-gom-bucket
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
