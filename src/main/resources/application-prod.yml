@@ -16,10 +16,10 @@ spring:
   application:
     name: eightyage
 
-    data:
-      redis:
-        host: eightyage-cache.2i7efi.ng.0001.apn2.cache.amazonaws.com:6379
-        port: 6379
+  data:
+    redis:
+      host: eightyage-cache.2i7efi.ng.0001.apn2.cache.amazonaws.com
+      port: 6379
 
   datasource:
     url: ${DB_URL}
