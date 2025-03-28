@@ -10,7 +10,11 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.eightyage.domain.user.entity.UserRole.Authority.ADMIN;
+import static com.example.eightyage.domain.user.entity.UserRole.Authority.USER;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +51,7 @@ public class AuthController {
     }
 
     /* 토큰 재발급 (로그인 기간 연장) */
+    @Secured({USER, ADMIN})
     @GetMapping("/v1/auth/refresh")
     public AuthAccessTokenResponseDto refresh(
             @RefreshToken String refreshToken,

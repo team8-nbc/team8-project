@@ -13,6 +13,11 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   application:
     name: eightyage
 

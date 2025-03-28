@@ -24,7 +24,15 @@ public enum ErrorMessage {
 
     INVALID_JWT_SIGNATURE("유효하지 않는 JWT 서명입니다."),
     EXPIRED_JWT_TOKEN("만료된 JWT 토큰입니다."),
-    UNSUPPORTED_JWT_TOKEN("지원되지 않는 JWT 토큰입니다.");
+    UNSUPPORTED_JWT_TOKEN("지원되지 않는 JWT 토큰입니다."),
+
+    EVENT_NOT_FOUND("이벤트를 찾을 수 없습니다."),
+    INVALID_EVENT_PERIOD("이벤트 기간이 아닙니다."),
+    COUPON_ALREADY_ISSUED("이미 쿠폰 발급 받은 사용자입니다."),
+    COUPON_OUT_OF_STOCK("쿠폰 수량이 소진되었습니다."),
+    COUPON_NOT_FOUND("쿠폰을 찾을 수 없습니다."),
+    COUPON_ALREADY_USED("이미 사용된 쿠폰입니다."),
+    COUPON_FORBIDDEN("본인의 쿠폰이 아닙니다.");
 
     private final String message;
 

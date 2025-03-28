@@ -33,8 +33,9 @@ Thumbs.db
 .env
 
 # Spring Boot application properties/yaml
-application-*.yml
-application-*.properties
+#application-*.yml
+#application-*.properties
 
 # AWS config
 .aws/
+

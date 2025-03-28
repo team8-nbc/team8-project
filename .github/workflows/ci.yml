@@ -46,8 +46,8 @@ jobs:
 
       - name: Clean Gradle Cache (Optional but good)
         run: ./gradlew clean --refresh-dependencies
-
       - name: Test And Build with Gradle (Debug Mode)
         env:
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
         run: ./gradlew build --stacktrace --info -Dspring.profiles.active=ci
+
