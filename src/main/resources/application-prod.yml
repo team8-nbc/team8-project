@@ -9,7 +9,7 @@ server:
     session:
       timeout: 1800
 
-spring:  # ✅ 요거 추가
+spring:
   application:
     name: eightyage
 
