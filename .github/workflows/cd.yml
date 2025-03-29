@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_REGION,AWS_S3_BUCKET
+          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY
 
           script: |
             export ECR_URI=${{ secrets.ECR_URI }}
