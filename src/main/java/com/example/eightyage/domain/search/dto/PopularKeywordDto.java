@@ -14,7 +14,7 @@ public class PopularKeywordDto {
     private String keyword;
     private Long count;
 
-    public static PopularKeywordDto of(String keyword, Long score) {
+    public static PopularKeywordDto keywordOf(String keyword, Long score) {
         return new PopularKeywordDto(keyword, score);
     }
 }

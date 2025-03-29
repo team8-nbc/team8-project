@@ -28,8 +28,6 @@ public class CacheConfig {
 
         // 캐시 별로 TTL 설정
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
-        configMap.put("keywordCountMap", defaultConfig.entryTtl(Duration.ZERO));
-        configMap.put("keywordKeySet", defaultConfig.entryTtl(Duration.ZERO));
         configMap.put("popularKeywords", defaultConfig.entryTtl(Duration.ofMinutes(5)));
 
         return RedisCacheManager.builder(redisConnectionFactory)

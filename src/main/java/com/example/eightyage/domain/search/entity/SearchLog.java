@@ -27,7 +27,7 @@ public class SearchLog {
     @CreatedDate
     private LocalDateTime searchedAt;
 
-    public static SearchLog of(String keyword) {
+    public static SearchLog keywordOf(String keyword) {
         SearchLog log = new SearchLog();
         log.keyword = keyword;
         return log;

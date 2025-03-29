@@ -103,7 +103,7 @@ public class ProductService {
         Page<ProductSearchResponseDto> productsResponse = productRepository.findProductsOrderByReviewScore(productName, category, pageable);
 
         if (StringUtils.hasText(productName) && !productsResponse.isEmpty()) {
-            searchServiceV1.saveSearchLog(productName); // 로그만 저장
+            searchServiceV1.saveSearchLog(productName); // 로그 저장
         }
         return productsResponse;
     }
@@ -117,7 +117,6 @@ public class ProductService {
 
         if (StringUtils.hasText(productName) && !productsResponse.isEmpty()) {
             searchServiceV2.saveSearchLog(productName); // 로그 저장
-            searchServiceV2.increaseKeywordCount(productName); // 캐시 작업
         }
 
         return productsResponse;
@@ -131,8 +130,8 @@ public class ProductService {
         Page<ProductSearchResponseDto> productsResponse = productRepository.findProductsOrderByReviewScore(productName, category, pageable);
 
         if(StringUtils.hasText(productName) && !productsResponse.isEmpty()){
-            searchServiceV3.saveSearchLog(productName);
-            searchServiceV3.increaseSortedKeywordRank(productName);
+            searchServiceV3.saveSearchLog(productName); // 로그 저장
+            searchServiceV3.increaseSortedKeywordRank(productName); // 캐시 추가
         }
         return productsResponse;
     }
@@ -153,6 +152,5 @@ public class ProductService {
                 () -> new NotFoundException("해당 제품이 존재하지 않습니다.")
         );
     }
-
 
 }

@@ -19,11 +19,11 @@ public class PopularKeywordServiceV2 implements PopularKeywordService {
     private final SearchLogRepository searchLogRepository;
     private static final int MIN_DAYS = 1;
     private static final int MAX_DAYS = 365;
-
+    private static final String POPULAR_KEYWORDS = "popularKeywords";
 
     //캐시O 인기 검색어 조회
     @Transactional(readOnly = true)
-    @Cacheable(value = "popularKeywords", key = "#days")
+    @Cacheable(value = POPULAR_KEYWORDS, key = "#days")
     public List<PopularKeywordDto> searchPopularKeywords(int days) {
         if (days < MIN_DAYS || days > MAX_DAYS) {
             throw new BadRequestException("조회 일 수는 1~365 사이여야 합니다.");

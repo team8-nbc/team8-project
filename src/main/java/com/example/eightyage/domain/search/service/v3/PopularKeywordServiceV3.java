@@ -28,7 +28,7 @@ public class PopularKeywordServiceV3 {
         if (keywordSet == null) {
             return List.of();
         }
-        return keywordSet.stream().map(tuple -> PopularKeywordDto.of(tuple.getValue(), Objects.requireNonNull(tuple.getScore()).longValue()))
+        return keywordSet.stream().map(tuple -> PopularKeywordDto.keywordOf(tuple.getValue(), Objects.requireNonNull(tuple.getScore()).longValue()))
                 .collect(Collectors.toList());
     }
 }
