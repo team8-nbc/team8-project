@@ -1,4 +1,4 @@
-package com.example.eightyage.domain.event.dto.request;
+package com.example.eightyage.domain.coupon.dto.request;
 
 import com.example.eightyage.global.dto.ValidationMessage;
 import jakarta.validation.constraints.Min;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventRequestDto {
+public class CouponRequestDto {
 
     @NotBlank(message = ValidationMessage.NOT_BLANK_EVENT_NAME)
     private String name;

@@ -1,4 +1,4 @@
-package com.example.eightyage.domain.product.entity;
+package com.example.eightyage.domain.product.category;
 
 public enum Category {
     SKINCARE("스킨케어"),

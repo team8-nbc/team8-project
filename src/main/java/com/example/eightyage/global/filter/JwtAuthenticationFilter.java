@@ -1,6 +1,6 @@
 package com.example.eightyage.global.filter;
 
-import com.example.eightyage.domain.user.entity.UserRole;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.global.config.JwtAuthenticationToken;
 import com.example.eightyage.global.util.JwtUtil;
 import com.example.eightyage.global.dto.AuthUser;

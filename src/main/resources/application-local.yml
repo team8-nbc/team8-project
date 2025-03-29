@@ -1,21 +1,18 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
+
   cloud:
     aws:
       credentials:
         access-key: ${AWS_ACCESS_KEY}
         secret-key: ${AWS_SECRET_KEY}
-      region:
-        static: ap-northeast-2
-      s3:
-        bucket: my-gom-bucket
 
-aws:
-  credentials:
-    access-key: ${AWS_ACCESS_KEY}
-    secret-key: ${AWS_SECRET_KEY}
-  region: ap-northeast-2
-  s3:
-    bucket: my-gom-bucket
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
     redis:

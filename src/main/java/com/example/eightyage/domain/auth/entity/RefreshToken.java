@@ -1,5 +1,6 @@
 package com.example.eightyage.domain.auth.entity;
 
+import com.example.eightyage.domain.auth.tokenstate.TokenState;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

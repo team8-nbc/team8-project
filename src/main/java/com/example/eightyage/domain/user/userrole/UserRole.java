@@ -1,4 +1,4 @@
-package com.example.eightyage.domain.user.entity;
+package com.example.eightyage.domain.user.userrole;
 
 import com.example.eightyage.global.exception.UnauthorizedException;
 import lombok.Getter;

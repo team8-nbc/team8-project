@@ -2,7 +2,7 @@ package com.example.eightyage.domain.user.service;
 
 import com.example.eightyage.domain.user.dto.request.UserDeleteRequestDto;
 import com.example.eightyage.domain.user.entity.User;
-import com.example.eightyage.domain.user.entity.UserRole;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.domain.user.repository.UserRepository;
 import com.example.eightyage.global.dto.AuthUser;
 import com.example.eightyage.global.exception.BadRequestException;

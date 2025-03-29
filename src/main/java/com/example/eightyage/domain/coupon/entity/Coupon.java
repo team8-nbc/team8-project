@@ -1,56 +1,66 @@
 package com.example.eightyage.domain.coupon.entity;
 
+import com.example.eightyage.domain.coupon.couponstate.CouponState;
+import com.example.eightyage.domain.coupon.dto.request.CouponRequestDto;
 import com.example.eightyage.domain.coupon.dto.response.CouponResponseDto;
-import com.example.eightyage.domain.event.entity.Event;
-import com.example.eightyage.domain.user.entity.User;
 import com.example.eightyage.global.entity.TimeStamped;
-import com.example.eightyage.global.util.RandomCodeGenerator;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Builder
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Coupon extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true)
-    private String couponCode;
-
+    private String name;
+    private String description;
+    private int quantity;
+    @Column(name="start_at")
+    private LocalDateTime startDate;
+    @Column(name = "end_at")
+    private LocalDateTime endDate;
     @Enumerated(EnumType.STRING)
     private CouponState state;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Event event;
-
-    public static Coupon create(User user, Event event) {
-        return Coupon.builder()
-                .couponCode(RandomCodeGenerator.generateCouponCode(10))
-                .state(CouponState.VALID)
-                .user(user)
-                .event(event)
-                .build();
+    public Coupon(String name, String description, int quantity, LocalDateTime startDate, LocalDateTime endDate) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public CouponResponseDto toDto() {
         return new CouponResponseDto(
-                this.couponCode,
-                this.state,
-                this.user.getNickname(),
-                this.event.getName(),
-                this.event.getStartDate(),
-                this.event.getEndDate()
+                this.getName(),
+                this.getDescription(),
+                this.getQuantity(),
+                this.getStartDate(),
+                this.getEndDate(),
+                this.getState()
         );
+    }
+
+    public void update(CouponRequestDto couponRequestDto) {
+        this.name = couponRequestDto.getName();
+        this.description = couponRequestDto.getDescription();
+        this.quantity = couponRequestDto.getQuantity();
+        this.startDate = couponRequestDto.getStartDate();
+        this.endDate = couponRequestDto.getEndDate();
+    }
+
+    public boolean isValidAt(LocalDateTime time) {
+        return (startDate.isBefore(time) || startDate.isEqual(time)) && (endDate.isAfter(time) || endDate.isEqual(time));
+    }
+
+    public void updateStateAt(LocalDateTime time) {
+        CouponState newState = isValidAt(time) ? CouponState.VALID : CouponState.INVALID;
+        this.state = newState;
     }
 }

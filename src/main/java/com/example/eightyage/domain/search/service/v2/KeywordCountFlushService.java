@@ -1,4 +1,4 @@
-package com.example.eightyage.domain.search.service;
+package com.example.eightyage.domain.search.service.v2;
 
 import com.example.eightyage.domain.search.entity.KeywordCount;
 import com.example.eightyage.domain.search.repository.KeywordCountRepository;

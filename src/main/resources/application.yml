@@ -12,12 +12,6 @@ server:
   application:
     name: eightyage
 
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -31,3 +25,4 @@ server:
 jwt:
   secret:
     key: ${JWT_SECRET_KEY}
+

@@ -3,7 +3,7 @@ package com.example.eightyage.domain.auth.service;
 import com.example.eightyage.domain.auth.entity.RefreshToken;
 import com.example.eightyage.domain.auth.repository.RefreshTokenRepository;
 import com.example.eightyage.domain.user.entity.User;
-import com.example.eightyage.domain.user.entity.UserRole;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.domain.user.service.UserService;
 import com.example.eightyage.global.exception.NotFoundException;
 import com.example.eightyage.global.exception.UnauthorizedException;
@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.example.eightyage.domain.auth.entity.TokenState.INVALIDATED;
+import static com.example.eightyage.domain.auth.tokenstate.TokenState.INVALIDATED;
 import static com.example.eightyage.global.exception.ErrorMessage.EXPIRED_REFRESH_TOKEN;
 import static com.example.eightyage.global.exception.ErrorMessage.REFRESH_TOKEN_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,7 +120,7 @@ public class TokenServiceTest {
         RefreshToken mockRefreshToken = mock(RefreshToken.class);
 
         given(refreshTokenRepository.findByToken(any(String.class))).willReturn(Optional.of(mockRefreshToken));
-        given(userService.findUserByIdOrElseThrow(mockRefreshToken.getUserId())).willReturn(user);
+        given(userService.findUserByIdOrElseThrow(anyLong())).willReturn(user);
 
         // when
         User result = tokenService.reissueToken(refreshToken);

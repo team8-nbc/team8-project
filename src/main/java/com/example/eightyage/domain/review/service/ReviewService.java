@@ -61,8 +61,8 @@ public class ReviewService {
         Review findReview = findReviewByIdOrElseThrow(reviewId);
 
         if(findUser.getId().equals(findReview.getUser().getId())){
-            findReview.updateScore(requestDto.getScore());
-            findReview.updateContent(requestDto.getContent());
+            findReview.updateScoreIfNotNull(requestDto.getScore());
+            findReview.updateContentIfNotNull(requestDto.getContent());
         } else {
             throw new UnauthorizedException("리뷰를 수정할 권한이 없습니다.");
         }
@@ -80,7 +80,7 @@ public class ReviewService {
 
     // 리뷰 다건 조회
     @Transactional(readOnly = true)
-    public Page<ReviewsGetResponseDto> findReviews(Long productId, PageRequest pageRequest) {
+    public Page<ReviewsGetResponseDto> getReviews(Long productId, PageRequest pageRequest) {
         Page<Review> reviewPage = reviewRepository.findByProductIdAndProductDeletedAtIsNull(productId, pageRequest);
 
         return reviewPage.map(review -> ReviewsGetResponseDto.builder()
@@ -100,11 +100,11 @@ public class ReviewService {
         User findUser = userService.findUserByIdOrElseThrow(userId);
         Review findReview = findReviewByIdOrElseThrow(reviewId);
 
-        if(findUser.getId().equals(findReview.getUser().getId())){
-            findReview.delete();
-        } else {
+        if(!findUser.getId().equals(findReview.getUser().getId())){
             throw new UnauthorizedException("리뷰를 삭제할 권한이 없습니다.");
         }
+
+        reviewRepository.delete(findReview);
     }
 
     public Review findReviewByIdOrElseThrow(Long reviewId){

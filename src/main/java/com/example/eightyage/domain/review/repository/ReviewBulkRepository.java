@@ -18,12 +18,10 @@ public class ReviewBulkRepository {
     public void bulkInsertReviews(List<Review> reviews) {
         String sql = "INSERT INTO review (user_id, product_id, score) values (?, ?, ?)";
 
-        Random random = new Random();
-
         jdbcTemplate.batchUpdate(sql, reviews, BATCH_SIZE, (ps, argument) -> {
-            ps.setInt(1, 1);
-            ps.setInt(2, random.nextInt(1000) + 1);
-            ps.setDouble(3, random.nextDouble() * 5);
+            ps.setLong(1, argument.getUser().getId());
+            ps.setLong(2, argument.getProduct().getId());
+            ps.setDouble(3, argument.getScore());
         });
     }
 

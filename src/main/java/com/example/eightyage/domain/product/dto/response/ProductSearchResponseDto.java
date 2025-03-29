@@ -1,6 +1,6 @@
 package com.example.eightyage.domain.product.dto.response;
 
-import com.example.eightyage.domain.product.entity.Category;
+import com.example.eightyage.domain.product.category.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;

@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.eightyage.domain.user.entity.UserRole.Authority.ADMIN;
-import static com.example.eightyage.domain.user.entity.UserRole.Authority.USER;
+import static com.example.eightyage.domain.user.userrole.UserRole.Authority.ADMIN;
+import static com.example.eightyage.domain.user.userrole.UserRole.Authority.USER;
 
 @RestController
 @RequiredArgsConstructor

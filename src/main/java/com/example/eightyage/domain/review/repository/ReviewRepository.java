@@ -17,11 +17,11 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query("SELECT r FROM Review r WHERE r.id = :reviewId AND r.deletedAt IS NULL")
+    @Query("SELECT r FROM Review r WHERE r.id = :reviewId")
     Optional<Review> findById(@Param("reviewId") Long reviewId);
 
     Page<Review> findByProductIdAndProductDeletedAtIsNull(Long productId, Pageable pageable);
 
-    @Query("SELECT r FROM Review r JOIN FETCH r.user JOIN FETCH r.product WHERE r.product.id = :productId AND r.deletedAt IS NULL")
+    @Query("SELECT r FROM Review r JOIN FETCH r.user JOIN FETCH r.product WHERE r.product.id = :productId")
     List<Review> findReviewsByProductId(@Param("productId") Long productId);
 }

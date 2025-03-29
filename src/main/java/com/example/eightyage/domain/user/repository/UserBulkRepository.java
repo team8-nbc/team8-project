@@ -17,15 +17,12 @@ public class UserBulkRepository {
     private final int BATCH_SIZE = 1000;
 
     public void bulkInsertUsers(List<User> users) {
-        String sql = "INSERT INTO user (email, password, nickname, deleted_at) values (?, ?, ?, ?)";
-
-        Random random = new Random();
+        String sql = "INSERT INTO user (email, password, nickname) values (?, ?, ?)";
 
         jdbcTemplate.batchUpdate(sql, users, BATCH_SIZE, (ps, argument) -> {
             ps.setString(1, argument.getEmail());
             ps.setString(2, argument.getPassword());
             ps.setString(3, argument.getNickname());
-            ps.setString(4, random.nextBoolean() ? null : LocalDateTime.now().toString());  // 랜덤으로 유저 삭제
         });
     }
 }

@@ -3,9 +3,11 @@ package com.example.eightyage.domain.review.dto.request;
 import com.example.eightyage.global.dto.ValidationMessage;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ReviewSaveRequestDto {
 
     @NotNull(message = ValidationMessage.NOT_NULL_SCORE)

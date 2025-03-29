@@ -47,6 +47,7 @@ public class SearchServiceV2 {
         updateKeywordSet(keyword);
     }
 
+    // 캐시에 키워드 추가
     private void updateKeywordSet(String keyword) {
         Cache keySetCache = cacheManager.getCache(KEYWORD_KEY_SET);
         if (keySetCache != null) {

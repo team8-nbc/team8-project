@@ -1,8 +1,9 @@
 //package com.example.eightyage.bulk;
 //
 //import com.example.eightyage.domain.user.entity.User;
-//import com.example.eightyage.domain.user.entity.UserRole;
+//import com.example.eightyage.domain.user.userrole.UserRole;
 //import com.example.eightyage.domain.user.repository.UserBulkRepository;
+//import com.example.eightyage.global.util.RandomCodeGenerator;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,7 @@
 //    private UserBulkRepository userBulkRepository;
 //
 //    @Test
-//    void 유저_데이터_백만건_생성() {
+//    void 유저_데이터_생성() {
 //
 //        int insertCount;
 //
@@ -33,18 +34,18 @@
 //
 //        for (int i = 0; i < insertCount; i++) {
 //            User user = User.builder()
-//                    .email(i + "@email.com")
+//                    .email(RandomCodeGenerator.generateCouponCode(8) + "@email.com")
 //                    .nickname("nickname" + i)
 //                    .password("password")
 //                    .userRole(UserRole.ROLE_USER)
 //                    .build();
 //            batchList.add(user);
 //
-//            if (batchList.size() == insertCount) {
+//            if (batchList.size() == insertCount / 100) {
 //                userBulkRepository.bulkInsertUsers(batchList);
 //                batchList.clear();
 //
-//                sleep(500);
+////                sleep(500);
 //            }
 //        }
 //

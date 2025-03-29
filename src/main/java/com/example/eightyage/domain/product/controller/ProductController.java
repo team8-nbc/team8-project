@@ -6,7 +6,7 @@ import com.example.eightyage.domain.product.dto.response.ProductGetResponseDto;
 import com.example.eightyage.domain.product.dto.response.ProductSaveResponseDto;
 import com.example.eightyage.domain.product.dto.response.ProductSearchResponseDto;
 import com.example.eightyage.domain.product.dto.response.ProductUpdateResponseDto;
-import com.example.eightyage.domain.product.entity.Category;
+import com.example.eightyage.domain.product.category.Category;
 import com.example.eightyage.domain.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +46,8 @@ public class ProductController {
 
     // 제품 단건 조회
     @GetMapping("/v1/products/{productId}")
-    public ResponseEntity<ProductGetResponseDto> getProduct(@PathVariable Long productId){
-        ProductGetResponseDto responseDto = productService.findProductById(productId);
+    public ResponseEntity<ProductGetResponseDto> findProduct(@PathVariable Long productId){
+        ProductGetResponseDto responseDto = productService.getProductById(productId);
 
         return ResponseEntity.ok(responseDto);
     }
@@ -72,6 +72,17 @@ public class ProductController {
             @RequestParam(defaultValue = "1") int page
     ) {
         return ResponseEntity.ok(productService.getProductsV2(name, category, size, page));
+    }
+
+    // 제품 다건 조회 version 3
+    @GetMapping("/v3/products")
+    public ResponseEntity<Page<ProductSearchResponseDto>> searchProductV3(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Category category,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1") int page
+    ) {
+        return ResponseEntity.ok(productService.getProductsV3(name, category, size, page));
     }
 
     // 제품 삭제

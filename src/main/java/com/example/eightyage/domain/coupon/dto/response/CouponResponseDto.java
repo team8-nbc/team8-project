@@ -1,6 +1,6 @@
 package com.example.eightyage.domain.coupon.dto.response;
 
-import com.example.eightyage.domain.coupon.entity.CouponState;
+import com.example.eightyage.domain.coupon.couponstate.CouponState;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -8,22 +8,20 @@ import java.time.LocalDateTime;
 @Getter
 public class CouponResponseDto {
 
-    private final String couponCode;
+    private final String name;
+    private final String description;
+    private final int quantity;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
     private final CouponState state;
-    private final String username;
-    private final String eventname;
 
-    private final LocalDateTime startAt;
-    private final LocalDateTime endAt;
 
-    public CouponResponseDto(String couponCode, CouponState state,
-                             String username, String eventname,
-                             LocalDateTime startAt, LocalDateTime endAt) {
-        this.couponCode = couponCode;
+    public CouponResponseDto(String name, String description, int quantity, LocalDateTime startDate, LocalDateTime endDate, CouponState state) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.state = state;
-        this.username = username;
-        this.eventname = eventname;
-        this.startAt = startAt;
-        this.endAt = endAt;
     }
 }

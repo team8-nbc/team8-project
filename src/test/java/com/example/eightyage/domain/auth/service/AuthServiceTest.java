@@ -4,7 +4,7 @@ import com.example.eightyage.domain.auth.dto.request.AuthSigninRequestDto;
 import com.example.eightyage.domain.auth.dto.request.AuthSignupRequestDto;
 import com.example.eightyage.domain.auth.dto.response.AuthTokensResponseDto;
 import com.example.eightyage.domain.user.entity.User;
-import com.example.eightyage.domain.user.entity.UserRole;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.domain.user.service.UserService;
 import com.example.eightyage.global.exception.BadRequestException;
 import com.example.eightyage.global.exception.UnauthorizedException;

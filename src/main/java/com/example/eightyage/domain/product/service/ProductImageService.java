@@ -3,7 +3,6 @@ package com.example.eightyage.domain.product.service;
 import com.example.eightyage.domain.product.entity.Product;
 import com.example.eightyage.domain.product.entity.ProductImage;
 import com.example.eightyage.domain.product.repository.ProductImageRepository;
-import com.example.eightyage.domain.product.repository.ProductRepository;
 import com.example.eightyage.global.exception.NotFoundException;
 import com.example.eightyage.global.exception.ProductImageUploadException;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -27,11 +25,8 @@ public class ProductImageService {
     private final ProductImageRepository productImageRepository;
     private final ProductService productService;
 
-    @Value("${aws.s3.bucket}")
-    private String bucket;
-
-    @Value("${aws.region}")
-    private String region;
+    private static final String BUCKET_NAME = "my-gom-bucket";
+    private static final String REGION = "ap-northeast-2";
 
     // 제품 이미지 업로드
     @Transactional
@@ -42,7 +37,7 @@ public class ProductImageService {
             // S3에 업로드
             s3Client.putObject(
                     PutObjectRequest.builder()
-                            .bucket(bucket)
+                            .bucket(BUCKET_NAME)
                             .key(fileName)
                             .contentType(file.getContentType())
                             .build(),
@@ -50,7 +45,7 @@ public class ProductImageService {
             );
 
             // S3 이미지 URL 생성
-            String imageUrl = String.format("https://%s.s3.%s.amazonaws.com/%s", bucket, region, fileName);
+            String imageUrl = String.format("https://%s.s3.%s.amazonaws.com/%s", BUCKET_NAME, REGION, fileName);
 
             // DB 저장
             Product product = productService.findProductByIdOrElseThrow(productId);
@@ -68,7 +63,7 @@ public class ProductImageService {
     public void deleteImage(Long imageId) {
         ProductImage findProductImage = findProductImageByIdOrElseThrow(imageId);
 
-        findProductImage.delete();
+        productImageRepository.delete(findProductImage);
     }
 
     public ProductImage findProductImageByIdOrElseThrow(Long imageId){

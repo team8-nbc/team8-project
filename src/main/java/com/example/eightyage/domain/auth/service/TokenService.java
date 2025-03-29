@@ -10,7 +10,7 @@ import com.example.eightyage.global.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.example.eightyage.domain.auth.entity.TokenState.INVALIDATED;
+import static com.example.eightyage.domain.auth.tokenstate.TokenState.INVALIDATED;
 import static com.example.eightyage.global.exception.ErrorMessage.EXPIRED_REFRESH_TOKEN;
 import static com.example.eightyage.global.exception.ErrorMessage.REFRESH_TOKEN_NOT_FOUND;
 

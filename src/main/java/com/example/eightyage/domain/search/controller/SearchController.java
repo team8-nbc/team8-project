@@ -3,6 +3,7 @@ package com.example.eightyage.domain.search.controller;
 import com.example.eightyage.domain.search.dto.PopularKeywordDto;
 import com.example.eightyage.domain.search.service.v1.PopularKeywordServiceV1;
 import com.example.eightyage.domain.search.service.v2.PopularKeywordServiceV2;
+import com.example.eightyage.domain.search.service.v3.PopularKeywordServiceV3;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class SearchController {
 
     private final PopularKeywordServiceV1 popularKeywordServiceV1;
     private final PopularKeywordServiceV2 popularKeywordServiceV2;
+    private final PopularKeywordServiceV3 popularKeywordServiceV3;
 
     // 인기 검색어 조회 (캐시 X)
     @GetMapping("/api/v1/search/popular")
@@ -32,5 +34,13 @@ public class SearchController {
             @RequestParam(defaultValue = "7") int days
     ) {
         return ResponseEntity.ok(popularKeywordServiceV2.searchPopularKeywords(days));
+    }
+
+    // 실시간 인기 검색어 조회 (캐시 O)
+    @GetMapping("/api/v3/search/popular")
+    public ResponseEntity<List<PopularKeywordDto>> searchPopularKeywordsV3(
+            @RequestParam(defaultValue = "10") int limits
+    ) {
+        return ResponseEntity.ok(popularKeywordServiceV3.searchPopularKeywords(limits));
     }
 }

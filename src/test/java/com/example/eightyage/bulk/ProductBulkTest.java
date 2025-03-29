@@ -1,6 +1,8 @@
 //package com.example.eightyage.bulk;
 //
+//import com.example.eightyage.domain.product.entity.Category;
 //import com.example.eightyage.domain.product.entity.Product;
+//import com.example.eightyage.domain.product.entity.SaleState;
 //import com.example.eightyage.domain.product.repository.ProductBulkRepository;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@
 //
 //import java.util.ArrayList;
 //import java.util.List;
+//import java.util.Random;
 //import java.util.UUID;
 //
 //@SpringBootTest
@@ -29,15 +32,21 @@
 //            insertCount = 1000000; // 로컬, 개발 서버 등에서는 많게
 //        }
 //
+//        Random random = new Random();
+//
 //        List<Product> batchList = new ArrayList<>();
 //
 //        for (int i = 0; i < insertCount; i++) {
+//            Category randomCategory = Category.values()[random.nextInt(Category.values().length)];
 //            Product product = Product.builder()
-//                    .name(UUID.randomUUID().toString())
-//                    .build();
+//                            .category(randomCategory)
+//                            .name(UUID.randomUUID().toString())
+//                            .saleState(random.nextBoolean() ? SaleState.FOR_SALE : SaleState.SOLD_OUT)
+//                            .build();
+//
 //            batchList.add(product);
 //
-//            if (batchList.size() == insertCount) {
+//            if (batchList.size() == insertCount / 100) {
 //                productBulkRepository.bulkInsertProduct(batchList);
 //                batchList.clear();
 //

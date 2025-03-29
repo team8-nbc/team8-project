@@ -1,12 +1,10 @@
 package com.example.eightyage.domain.user.entity;
 
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.global.dto.AuthUser;
 import com.example.eightyage.global.entity.TimeStamped;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +27,9 @@ public class User extends TimeStamped {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime deletedAt;
+
     @Builder
     public User(Long id, String email, String nickname, String password, UserRole userRole) {
         this.id = id;
@@ -48,6 +49,6 @@ public class User extends TimeStamped {
     }
 
     public void deleteUser() {
-        setDeletedAt(LocalDateTime.now());
+        this.deletedAt = LocalDateTime.now();
     }
 }

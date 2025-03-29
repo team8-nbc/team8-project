@@ -1,7 +1,7 @@
 package com.example.eightyage.domain.product.repository;
 
 import com.example.eightyage.domain.product.dto.response.ProductSearchResponseDto;
-import com.example.eightyage.domain.product.entity.Category;
+import com.example.eightyage.domain.product.category.Category;
 import com.example.eightyage.domain.product.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(@Param("productId") Long productId);
 
     @Query("SELECT new com.example.eightyage.domain.product.dto.response.ProductSearchResponseDto(p.name, p.category, p.price, AVG(r.score)) " +
-            "FROM Product p JOIN p.reviews r " +
+            "FROM Product p LEFT JOIN p.reviews r " +
             "WHERE p.saleState = 'FOR_SALE' " +
             "AND (:category IS NULL OR p.category = :category) " +
             "AND (:name IS NULL OR p.name LIKE CONCAT('%', :name, '%')) " +

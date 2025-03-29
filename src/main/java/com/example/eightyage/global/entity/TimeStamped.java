@@ -23,16 +23,4 @@ public abstract class TimeStamped {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime deletedAt;
-
-    public void delete() {
-        this.deletedAt = LocalDateTime.now();
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
-    }
 }

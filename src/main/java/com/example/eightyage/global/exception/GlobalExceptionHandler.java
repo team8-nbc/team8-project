@@ -1,6 +1,6 @@
 package com.example.eightyage.global.exception;
 
-import com.example.eightyage.global.entity.ErrorResponse;
+import com.example.eightyage.global.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ import static com.example.eightyage.global.exception.ErrorMessage.INTERNAL_SERVE
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse<String>> invalidRequestExceptionException(CustomException ex) {
+    @ExceptionHandler(HandledException.class)
+    public ResponseEntity<ErrorResponse<String>> invalidRequestExceptionException(HandledException ex) {
         HttpStatus httpStatus = ex.getHttpStatus();
         return new ResponseEntity<>(ErrorResponse.of(httpStatus, ex.getMessage()), ex.getHttpStatus());
     }

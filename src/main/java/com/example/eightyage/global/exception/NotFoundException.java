@@ -1,6 +1,6 @@
 package com.example.eightyage.global.exception;
 
-public class NotFoundException extends CustomException {
+public class NotFoundException extends HandledException {
     public NotFoundException() {
         super(ErrorCode.NOT_FOUND);
     }

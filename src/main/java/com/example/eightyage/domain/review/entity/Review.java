@@ -4,6 +4,7 @@ import com.example.eightyage.domain.product.entity.Product;
 import com.example.eightyage.domain.user.entity.User;
 import com.example.eightyage.global.entity.TimeStamped;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "review")
 public class Review extends TimeStamped {
 
@@ -37,13 +39,13 @@ public class Review extends TimeStamped {
         this.content = content;
     }
 
-    public void updateScore(Double newScore){
+    public void updateScoreIfNotNull(Double newScore){
         if(newScore != null){
             this.score = newScore;
         }
     }
 
-    public void updateContent(String newContent){
+    public void updateContentIfNotNull(String newContent){
         if(newContent != null){
             this.content = newContent;
         }

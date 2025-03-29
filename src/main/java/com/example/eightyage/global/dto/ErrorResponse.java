@@ -1,4 +1,4 @@
-package com.example.eightyage.global.entity;
+package com.example.eightyage.global.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
