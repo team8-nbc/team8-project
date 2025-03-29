@@ -48,8 +48,6 @@ jobs:
             export DB_USER=${{ secrets.DB_USER }}
             export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-            export AWS_REGION=${{ secrets.AWS_REGION }}
-            export AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
             
             docker ps -q --filter ancestor=$ECR_URI | xargs -r docker stop
             docker ps -aq --filter ancestor=$ECR_URI | xargs -r docker rm
@@ -61,8 +59,6 @@ jobs:
               -e DB_USER=$DB_USER \
               -e DB_PASSWORD=$DB_PASSWORD \
               -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
-              -e AWS_REGION=$AWS_REGION \
-              -e AWS_S3_BUCKET=$AWS_S3_BUCKET \
               $ECR_URI
 
       - name: Health Check
