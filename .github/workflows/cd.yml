@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_ACCESS_KEY,AWS_SECRET_KEY
+          envs: ECR_URI,DB_URL,DB_USER,DB_PASSWORD,JWT_SECRET_KEY,AWS_ACCESS_KEY,AWS_SECRET_KEY,REDIS_HOST
 
           script: |
             export ECR_URI=${{ secrets.ECR_URI }}
@@ -50,6 +50,7 @@ jobs:
             export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
             export AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
             export AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+            export REDIS_HOST=${{ secrets.REDIS_HOST }}
             
             docker ps -q --filter ancestor=$ECR_URI | xargs -r docker stop
             docker ps -aq --filter ancestor=$ECR_URI | xargs -r docker rm
@@ -63,6 +64,7 @@ jobs:
               -e JWT_SECRET_KEY=$JWT_SECRET_KEY \
               -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY \
               -e AWS_SECRET_KEY=$AWS_SECRET_KEY \
+              -e REDIS_HOST=$REDIS_HOST \
               $ECR_URI
 
       - name: Health Check

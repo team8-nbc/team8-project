@@ -14,7 +14,7 @@ server:
 
   data:
     redis:
-      host: eightyage-cache.2i7efi.ng.0001.apn2.cache.amazonaws.com
+      host: ${REDIS_HOST}
       port: 6379
 
   datasource:
