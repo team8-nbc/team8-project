@@ -13,10 +13,10 @@ public class S3Config {
 
     private static final String REGION = "ap-northeast-2";
 
-    @Value("${aws.access-key}")
+    @Value("${AWS_ACCESS_KEY}")
     private String accessKey;
 
-    @Value("${aws.secret-key}")
+    @Value("${AWS_SECRET_KEY}")
     private String secretKey;
 
 
