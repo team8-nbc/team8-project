@@ -1,7 +1,7 @@
 package com.example.eightyage.domain.review.service;
 
 import com.example.eightyage.domain.product.entity.Product;
-import com.example.eightyage.domain.product.repository.ProductRepository;
+
 import com.example.eightyage.domain.product.service.ProductService;
 import com.example.eightyage.domain.review.dto.request.ReviewSaveRequestDto;
 import com.example.eightyage.domain.review.dto.request.ReviewUpdateRequestDto;
@@ -11,18 +11,16 @@ import com.example.eightyage.domain.review.dto.response.ReviewsGetResponseDto;
 import com.example.eightyage.domain.review.entity.Review;
 import com.example.eightyage.domain.review.repository.ReviewRepository;
 import com.example.eightyage.domain.user.entity.User;
-import com.example.eightyage.domain.user.entity.UserRole;
-import com.example.eightyage.domain.user.repository.UserRepository;
 import com.example.eightyage.domain.user.service.UserService;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.global.exception.UnauthorizedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.data.domain.*;
-import org.springframework.data.querydsl.QPageRequest;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +62,13 @@ class ReviewServiceTest {
         Long productId = 1L;
         Long reviewId = 1L;
 
+        ReflectionTestUtils.setField(user, "id", userId);
+        ReflectionTestUtils.setField(product, "id", productId);
+
         Review review = new Review(reviewId, user, product, 5.0, "8자 주름을 다리미처럼 펴줘요 짱짱");
+        given(userService.findUserByIdOrElseThrow(anyLong())).willReturn(user);
+        given(productService.findProductByIdOrElseThrow(anyLong())).willReturn(product);
+
         given(reviewRepository.save(any())).willReturn(review);
 
         ReviewSaveRequestDto requestDto = new ReviewSaveRequestDto(5.0, "8자 주름을 다리미처럼 펴줘요 짱짱");
