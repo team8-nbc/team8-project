@@ -11,7 +11,7 @@ import com.example.eightyage.domain.review.dto.response.ReviewsGetResponseDto;
 import com.example.eightyage.domain.review.entity.Review;
 import com.example.eightyage.domain.review.repository.ReviewRepository;
 import com.example.eightyage.domain.user.entity.User;
-import com.example.eightyage.domain.user.entity.UserRole;
+import com.example.eightyage.domain.user.userrole.UserRole;
 import com.example.eightyage.domain.user.repository.UserRepository;
 import com.example.eightyage.domain.user.service.UserService;
 import com.example.eightyage.global.exception.UnauthorizedException;
